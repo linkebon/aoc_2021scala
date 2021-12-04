@@ -1,4 +1,4 @@
-import scala.collection.{mutable}
+import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.util.control.Breaks
@@ -22,8 +22,8 @@ object D4 {
       for (number <- bingoNumbers) {
         markNumberInBingoBoards(number, bingoBoards)
         val boardsWithBingo = isBingoSupportingMultipleBingo(bingoBoards)
-        if (boardsWithBingo.isDefined) {
-          boardsWithBingo.get.foreach(b => {
+        if (boardsWithBingo.nonEmpty) {
+          boardsWithBingo.foreach(b => {
             bingoBoards.remove(b._2)
             lastBingoNumber = number
             lastBingoBoard = b._1
@@ -70,7 +70,7 @@ object D4 {
     (None, -1)
   }
 
-  def isBingoSupportingMultipleBingo(bingoBoards: mutable.Seq[Array[Array[Point]]]): Option[ListBuffer[(Array[Array[Point]], Int)]] = {
+  def isBingoSupportingMultipleBingo(bingoBoards: mutable.Seq[Array[Array[Point]]]): ListBuffer[(Array[Array[Point]], Int)] = {
     var boardsGotBingo: ListBuffer[Tuple2[Array[Array[Point]], Int]] = ListBuffer.empty
     for ((board, idx) <- bingoBoards.zipWithIndex) {
       var gotBingo = false
@@ -92,9 +92,9 @@ object D4 {
     }
 
     if (boardsGotBingo.nonEmpty)
-      Some(boardsGotBingo)
+      boardsGotBingo
     else
-      None
+      ListBuffer.empty
   }
 
   def calcUnmarkedNumbersSum(board: Array[Array[Point]]): Int = {
