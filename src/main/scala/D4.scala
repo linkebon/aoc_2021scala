@@ -7,10 +7,10 @@ object D4 {
   def main(args: Array[String]): Unit = {
     val input: Seq[String] = Source.fromFile("input/d4.txt").mkString.split("\n\n").toList
     val bingoNumbers: List[String] = input.head.split(",").toList
-    //val bingoBoards: Seq[Array[Array[Point]]] = input.tail.map(parseBingoBoard)
+    val bingoBoards: Seq[Array[Array[Point]]] = input.tail.map(parseBingoBoard)
     val bingoBoardsPartTwo: Seq[Array[Array[Point]]] = input.tail.map(parseBingoBoard)
 
-    //partOne(bingoNumbers, ListBuffer.empty ++= bingoBoards)
+    partOne(bingoNumbers, ListBuffer.empty ++= bingoBoards)
     partTwo(bingoNumbers, ListBuffer.empty ++= bingoBoardsPartTwo)
   }
 
@@ -27,13 +27,12 @@ object D4 {
             bingoBoards.remove(b._2)
             lastBingoNumber = number
             lastBingoBoard = b._1
-            println(calcUnmarkedNumbersSum(lastBingoBoard) * lastBingoNumber.toInt)
           }
           )
         }
       }
     }
-    println(calcUnmarkedNumbersSum(lastBingoBoard) * lastBingoNumber.toInt)
+    println("part two: " + calcUnmarkedNumbersSum(lastBingoBoard) * lastBingoNumber.toInt)
 
   }
 
