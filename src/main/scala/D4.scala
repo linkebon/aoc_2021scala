@@ -17,8 +17,8 @@ object D4 {
     loop.breakable {
       for (number <- bingoNumbers) {
         markNumberInBingoBoards(number, bingoBoards)
-        val (bingoBoard, bingo) = isBingo(bingoBoards)
-        if (bingo) {
+        val bingoBoard = isBingo(bingoBoards)
+        if (bingoBoard.isDefined) {
           println(calcUnmarkedNumbersSum(bingoBoard.get) * number.toInt)
           loop.break()
         }
@@ -26,25 +26,23 @@ object D4 {
     }
   }
 
-  def isBingo(bingoBoards: Seq[Array[Array[Point]]]): (Option[Array[Array[Point]]], Boolean) = {
+  def isBingo(bingoBoards: Seq[Array[Array[Point]]]): Option[Array[Array[Point]]]= {
     for (board <- bingoBoards) {
       for (row <- board) {
-        if (allNumbersInRowMarked(row)) {
-          return (Some(board), true)
+        // check rows
+        if (row.forall(_.chosen)) {
+          return Some(board)
         }
       }
 
-      for (colIdx <- 0 until 4) {
-        if (board(colIdx)(0).chosen && board(colIdx)(1).chosen && board(colIdx)(2).chosen && board(colIdx)(3).chosen && board(colIdx)(4).chosen) {
-          return (Some(board), true)
+      // check columns by using transpose so columns gets as rows
+      for (col <- board.transpose) {
+        if (col.forall(_.chosen)) {
+          return Some(board)
         }
       }
     }
-    (None, false)
-  }
-
-  def allNumbersInRowMarked(row: Array[Point]): Boolean = {
-    row.forall(_.chosen)
+    None
   }
 
   def calcUnmarkedNumbersSum(board: Array[Array[Point]]): Int = {
