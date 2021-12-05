@@ -81,7 +81,7 @@ object D5 {
       case (c1@(x1, y1), c2@(x2, y2)) if isDiagonal(c1, c2) && x1 > x2 && y1 > y2 =>
         println(s"diagonal up left: c1:$c1  c2:$c2")
         var increase = 0
-        for (x <- x2 to x1) {
+        for (_ <- x2 to x1) {
           println(s"marking: ${x2 + increase}:${y2 + increase}")
           matrix(x2 + increase)(y2 + increase) += 1
           increase += 1
@@ -90,7 +90,7 @@ object D5 {
       case (c1@(x1, y1), c2@(x2, y2)) if isDiagonal(c1, c2) && x1 > x2 && y1 < y2 =>
         println(s"diagonal down left: c1:$c1  c2:$c2")
         var increase = 0
-        for (x <- x2 to x1) {
+        for (_ <- x2 to x1) {
           println(s"marking: ${x2 + increase}:${y2 - increase}")
           matrix(x2 + increase)(y2 - increase) += 1
           increase += 1
@@ -99,7 +99,7 @@ object D5 {
       case (c1@(x1, y1), c2@(x2, y2)) if isDiagonal(c1, c2) && x1 < x2 && y1 < y2 =>
         println(s"diagonal down right: c1:$c1  c2:$c2")
         var increase = 0
-        for (x <- x1 to x2) {
+        for (_ <- x1 to x2) {
           println(s"marking: ${x1 + increase}:${y1 + increase}")
           matrix(x1 + increase)(y1 + increase) += 1
           increase += 1
@@ -108,7 +108,7 @@ object D5 {
       case (c1@(x1, y1), c2@(x2, y2)) if isDiagonal(c1, c2) && x1 < x2 && y1 > y2 =>
         println(s"diagonal up right: c1:$c1  c2:$c2")
         var increase = 0
-        for (x <- x1 to x2) {
+        for (_ <- x1 to x2) {
           println(s"marking: ${x1 + increase}:${y1 - increase}")
           matrix(x1 + increase)(y1 - increase) += 1
           increase += 1
