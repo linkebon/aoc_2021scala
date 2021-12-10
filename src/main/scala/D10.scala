@@ -21,7 +21,7 @@ object D10 {
   def two(input: Seq[String]) = {
     val sorted = input
       .filter(instruction => findIllegalInstruction(instruction).isEmpty)
-      .map(closeUncompletedInstruction)
+      .map(padUncompletedInstruction)
       .map(paddedInstructions => {
         var tmpSum: BigInt = 0
         val scores = paddedInstructions.map {
@@ -64,7 +64,7 @@ object D10 {
     None
   }
 
-  def closeUncompletedInstruction(instruction: String): List[String] = {
+  def padUncompletedInstruction(instruction: String): List[String] = {
     val openChunks: mutable.Stack[String] = new mutable.Stack[String]()
 
     for (i <- 0 until instruction.length) {
